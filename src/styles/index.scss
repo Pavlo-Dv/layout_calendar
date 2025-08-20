@@ -5,6 +5,7 @@ $item-width: 100px;
 $column-width: calc(
   #{$item-width} * #{$columns} + #{$gap} * (#{$columns} - 1) + #{$padding} * 2
 );
+
 $days: (
   mon: 0,
   tue: 1,
@@ -16,10 +17,9 @@ $days: (
 );
 
 body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   min-height: 100vh;
+  display: grid;
+  place-items: center;
   margin: 0;
 }
 
@@ -30,7 +30,7 @@ body {
   padding: $padding;
   max-width: $column-width;
   margin-left: 20px;
-
+  
   @each $day, $index in $days {
     &--start-day-#{$day} {
       .calendar__day:first-child {
@@ -48,24 +48,24 @@ body {
 
 .calendar__day {
   box-sizing: border-box;
-  width: 100px;
-  height: 100px;
+  width: $item-width;
+  height: $item-width;
   background: #eee;
   border: 1px solid #000;
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: 500ms;
+  transition: 0.5s;
 }
 
 .calendar__day:hover {
   cursor: pointer;
-  background-color: #FFBFCB;
+  background-color: #ffbfcb;
   transform: translateY(-20px);
 }
 
 @for $i from 1 through 31 {
-  .calendar__day:nth-child(n + #{$i})::before {
+  .calendar__day:nth-child(#{$i})::before {
     content: '#{$i}';
     text-align: center;
     font-size: 30px;
